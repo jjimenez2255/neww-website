@@ -1,0 +1,25 @@
+categories:
+  - name: "Strategy"
+    items:
+      - service: "Brand Strategy"
+      - service: "Market Research"
+      - service: "Positioning"
+      - service: "Naming"
+  - name: "Design"
+    items:
+      - service: "Visual Identity"
+      - service: "Art Direction"
+      - service: "Packaging"
+      - service: "Print"
+  - name: "Digital"
+    items:
+      - service: "Web Design"
+      - service: "UI/UX"
+      - service: "E-commerce"
+      - service: "Apps"
+  - name: "Content"
+    items:
+      - service: "Photography"
+      - service: "Video"
+      - service: "Copywriting"
+      - service: "Social"

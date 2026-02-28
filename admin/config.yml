@@ -1,0 +1,67 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "general"
+        label: "General Settings"
+        file: "content/settings.yml"
+        fields:
+          - { label: "Agency Name", name: "name", widget: "string" }
+          - { label: "Tagline", name: "tagline", widget: "string" }
+          - { label: "Bio", name: "bio", widget: "text" }
+          - { label: "Location", name: "location", widget: "string" }
+
+  - name: "clients"
+    label: "Clients"
+    file: "content/clients.yml"
+    fields:
+      - label: "Client List"
+        name: "clients"
+        widget: "list"
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+
+  - name: "projects"
+    label: "Projects"
+    folder: "content/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Client", name: "client", widget: "string" }
+      - { label: "Featured Image", name: "image", widget: "image" }
+      - { label: "Order", name: "order", widget: "number", default: 0 }
+      - { label: "Gallery Images", name: "gallery", widget: "list", field: { label: "Image", name: "image", widget: "image" }, required: false }
+
+  - name: "services"
+    label: "Services"
+    file: "content/services.yml"
+    fields:
+      - label: "Service Categories"
+        name: "categories"
+        widget: "list"
+        fields:
+          - { label: "Category Name", name: "name", widget: "string" }
+          - label: "Services"
+            name: "items"
+            widget: "list"
+            field: { label: "Service", name: "service", widget: "string" }
+
+  - name: "team"
+    label: "Team"
+    file: "content/team.yml"
+    fields:
+      - label: "Team Members"
+        name: "members"
+        widget: "list"
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Role", name: "role", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
