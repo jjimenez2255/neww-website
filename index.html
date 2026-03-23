@@ -580,11 +580,125 @@ main { padding-top: 200px; }
 .info-submit:hover { color: var(--muted); }
 
 /* RESPONSIVE */
-@media (max-width: 900px) {
-  .bio-section { grid-template-columns: 1fr; }
-  .services { grid-template-columns: 1fr 1fr; }
+/* TABLET */
+@media (max-width: 1024px) {
+  .services { grid-template-columns: repeat(3, 1fr); }
+  .bio-left { padding: 0 24px; }
+  .bio-right { padding: 0 24px 0 0; }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  main { padding-top: 140px; }
+  
+  nav { height: 48px; }
+  .nav-center { font-size: 12px; }
+  .nav-left { font-size: 11px; left: 16px; }
+  
+  .scroll-logo { top: 12px; right: 16px; }
+  .scroll-logo img { width: 28px; }
+  
+  .bio-section { 
+    grid-template-columns: 1fr; 
+    padding: 24px 0 40px;
+  }
+  .bio-left { 
+    padding: 0 20px; 
+    margin-bottom: 24px;
+  }
+  .bio-right { padding: 0 20px; }
+  .bio-logo { width: 40px; }
+  .bio p { font-size: 14px; line-height: 1.7; }
+  
+  .clients-row {
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 20px;
+  }
+  .client-logo { font-size: 11px; }
+  
+  .work-images { grid-template-columns: 1fr; }
+  .work-item { border-right: none; border-bottom: 1px solid var(--rule); }
+  .work-item:last-child { border-bottom: none; }
+  .work-img-wrap { aspect-ratio: 4/5; }
+  .work-overlay { opacity: 1; }
+  .work-meta { padding: 14px 16px 16px; }
+  .work-title { font-size: 13px; }
+  .work-cta { font-size: 12px; }
+  
+  .wide-video-wrap { aspect-ratio: 16/9; }
+  .wide-video-overlay { 
+    opacity: 1; 
+    padding: 20px;
+  }
+  .wide-video-label { font-size: 12px; }
+  
+  .services { grid-template-columns: 1fr; }
+  .service-col { 
+    padding: 24px 20px 28px;
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+  }
+  .service-col:last-child { border-bottom: none; }
+  .service-cat { font-size: 14px; margin-bottom: 16px; }
+  .service-items li { font-size: 14px; }
+  
+  .subscribe-section { padding: 32px 20px; }
+  .subscribe-label { font-size: 13px; margin-bottom: 20px; }
+  .subscribe-form { flex-direction: column; gap: 12px; }
+  .subscribe-input { width: 100%; max-width: none; }
+  .subscribe-btn { width: 100%; padding: 14px 24px; }
+  
+  .footer-main { 
+    flex-direction: column; 
+    padding: 32px 20px;
+    gap: 24px;
+  }
+  .footer-left, .footer-right { text-align: center; }
+  .footer-clock { justify-content: center; }
+  
+  .info-overlay { padding: 0; }
+  .info-inner { padding: 80px 20px 40px; }
+  .info-bio { font-size: 15px; margin-bottom: 40px; }
   .info-grid { grid-template-columns: 1fr; }
-  .info-col { border-right: none; padding-left: 0; }
+  .info-col { 
+    border-right: none; 
+    padding: 0 0 24px 0;
+  }
+  .info-col-label { font-size: 11px; }
+  .info-list li { font-size: 13px; }
+  .info-form-row { flex-direction: column; }
+  .info-input { 
+    border-right: none !important; 
+    border-bottom: 1px solid var(--rule);
+    padding: 16px 0;
+  }
+  .info-submit { 
+    width: 100%; 
+    padding: 16px 24px;
+    font-size: 13px;
+  }
+  
+  .lightbox-content { padding: 60px 16px 16px; }
+  .lightbox-img { max-height: 70vh; }
+  .lightbox-title { font-size: 12px; }
+  .lightbox-counter { font-size: 11px; }
+  .lightbox-close { top: 16px; right: 16px; font-size: 16px; }
+  .lightbox-arrow { font-size: 24px; padding: 12px; }
+  .lightbox-arrow.prev { left: 8px; }
+  .lightbox-arrow.next { right: 8px; }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+  main { padding-top: 120px; }
+  
+  .bio p { font-size: 13px; }
+  .bio-logo { width: 36px; }
+  
+  .work-img-wrap { aspect-ratio: 1/1; }
+  
+  .info-bio { font-size: 14px; line-height: 1.7; }
 }
 </style>
 </head>
@@ -843,6 +957,12 @@ main { padding-top: 200px; }
 function handleSubscribe() {
   const input = document.querySelector('.subscribe-input');
   if (input.value.includes('@')) {
+    fetch('https://script.google.com/macros/s/AKfycbyD1UobTQxvvVC3EsEbOFB-rnRD1pJjBXrVhMbaDnZ6wB4bkGHs2ApHIHSwpwQecN0n/exec', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: 'name=&email=' + encodeURIComponent(input.value) + '&project=Studio+Inquiry&source=subscribe'
+    });
     document.getElementById('subConfirm').style.display = 'block';
     input.value = '';
   }
@@ -955,6 +1075,16 @@ function closeInfo() {
 
 function handleInfoForm(e) {
   e.preventDefault();
+  const inputs = e.target.querySelectorAll('.info-input');
+  const name = inputs[0].value;
+  const email = inputs[1].value;
+  const project = inputs[2].value;
+  fetch('https://script.google.com/macros/s/AKfycbyD1UobTQxvvVC3EsEbOFB-rnRD1pJjBXrVhMbaDnZ6wB4bkGHs2ApHIHSwpwQecN0n/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: 'name=' + encodeURIComponent(name) + '&email=' + encodeURIComponent(email) + '&project=' + encodeURIComponent(project) + '&source=contact'
+  });
   const el = document.getElementById('infoSent');
   el.classList.add('show');
   e.target.reset();
